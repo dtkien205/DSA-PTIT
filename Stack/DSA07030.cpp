@@ -54,8 +54,9 @@ int main()
             for (int j = 0; j < m; j++) {
                 if (i == 0)
                     tmp[i][j] = a[i][j];
-                else
+                else if (a[i][j])
                     tmp[i][j] = tmp[i - 1][j] + a[i][j];
+                else tmp[i][j] = 0;
             }
         }
         int res = 0;

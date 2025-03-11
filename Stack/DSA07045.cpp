@@ -22,8 +22,10 @@ int main()
                 res += st.top();
                 st.pop();
             }
-        } else
-            res.pop_back();
+        } else {
+            if (!res.empty())
+                res.pop_back();
+        }
     }
     while (!st.empty()) {
         res += st.top();

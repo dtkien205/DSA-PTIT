@@ -4,30 +4,28 @@ using namespace std;
 #define endl '\n'
 
 int n, m;
+int color[1005];
 vector<int> adj[1005];
-bool visited[1005];
-int parent[1005];
-
-bool dfs(int u)
-{
-    visited[u] = true;
-    for (int v : adj[u]) {
-        if (!visited[v]) {
-            parent[v] = u;
-            if (dfs(v))
-                return true;
-        } else if (v != parent[u])
-            return true;
-    }
-    return false;
-}
 
 void reset()
 {
-    memset(visited, false, sizeof(visited));
-    memset(parent, 0, sizeof(parent));
+    memset(color, 0, sizeof(color));
     for (int i = 1; i <= n; i++)
         adj[i].clear();
+}
+
+bool dfs(int u)
+{
+    color[u] = 1;
+    for (int v : adj[u]) {
+        if (!color[v]) {
+            if (dfs(v))
+                return true;
+        } else if (color[v] == 1)
+            return true;
+    }
+    color[u] = 2;
+    return false;
 }
 
 int main()
@@ -41,19 +39,16 @@ int main()
             int x, y;
             cin >> x >> y;
             adj[x].push_back(y);
-            adj[y].push_back(x);
         }
-        bool check = false;
+        bool ok = false;
         for (int i = 1; i <= n; i++) {
-            if (!visited[i]) {
+            if (!color[i]) {
                 if (dfs(i)) {
-                    cout << "YES\n";
-                    check = true;
+                    ok = true;
                     break;
                 }
             }
         }
-        if (!check)
-            cout << "NO\n";
+        cout << (ok ? "YES" : "NO") << endl;
     }
 }

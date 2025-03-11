@@ -1,51 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define endl '\n'
-
-map<int, int, greater<>> parse(string s)
+int a[5], f;
+void Try(int i, int sum)
 {
-    map<int, int, greater<>> mp;
-    stringstream ss(s);
-    string tmp;
-    while (ss >> tmp) {
-        if (tmp == "+")
-            continue;
-
-        int pos = tmp.find("*x^");
-        int heSo = stoi(tmp.substr(0, pos));
-        int mu = stoi(tmp.substr(pos + 3));
-        mp[mu] += heSo;
+    if (f)
+        return;
+    if (i > 4) {
+        if (sum == 23)
+            f = 1;
+        return;
     }
-    return mp;
+    Try(i + 1, sum + a[i]);
+    Try(i + 1, sum - a[i]);
+    Try(i + 1, sum * a[i]);
 }
-
-void add(string s1, string s2)
-{
-    map<int, int, greater<>> res = parse(s1);
-    map<int, int, greater<>> tmp = parse(s2);
-    for (auto x : tmp)
-        res[x.first] += x.second;
-
-    bool first = true;
-    for (auto x : res) {
-        if (first)
-            first = false;
-        else
-            cout << " + ";
-        cout << x.second << "*x^" << x.first;
-    }
-}
-
 int main()
 {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
     int t;
     cin >> t;
     while (t--) {
-        string s1, s2;
-        getline(cin >> ws, s1);
-        getline(cin >> ws, s2);
-        add(s1, s2);
-        cout << endl;
+        for (int& x : a)
+            cin >> x;
+        sort(a, a + 5);
+        f = 0;
+        do {
+            Try(1, a[0]);
+        } while (next_permutation(a, a + 5) && !f);
+        cout << (f ? "YES\n" : "NO\n");
     }
+    return 0;
 }
