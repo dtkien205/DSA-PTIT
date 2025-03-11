@@ -4,7 +4,7 @@ using namespace std;
 #define endl '\n'
 
 vector<int> ke[1005];
-
+ 
 int main()
 {
     int t;

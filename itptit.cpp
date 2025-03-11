@@ -7,7 +7,7 @@ void Try(int i, int sum)
         return;
     if (i > 4) {
         if (sum == 23)
-            f = 1;
+            f = 1; 
         return;
     }
     Try(i + 1, sum + a[i]);

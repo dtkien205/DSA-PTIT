@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     vector<int> v;
-    int t;
+    int t; 
     cin >> t;
     cin.ignore();
     while (t--) {

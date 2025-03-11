@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define endl '\n'
-
+ 
 int c[10] = {}, c1[10] = {}, c2[10] = {};
 int ans, a[10][10];
 

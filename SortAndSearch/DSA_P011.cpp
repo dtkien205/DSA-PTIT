@@ -7,7 +7,7 @@ int n, m, cnt;
 char a[1005][1005];
 int dx[] = { -1, 0, 0, 1 };
 int dy[] = { 0, -1, 1, 0 };
-
+ 
 void dfs(int i, int j)
 {
     a[i][j] = '.';

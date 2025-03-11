@@ -4,7 +4,7 @@ using namespace std;
 #define endl '\n'
 
 int F[1005][1005];
-
+ 
 int main()
 {
     int t;
