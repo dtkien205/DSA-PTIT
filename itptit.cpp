@@ -1,35 +1,104 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[5], f;
-void Try(int i, int sum)
-{
-    if (f)
-        return;
-    if (i > 4) {
-        if (sum == 23)
-            f = 1; 
-        return;
+int ok;
+
+struct node {
+    int data;
+    node *left, *right;
+    node(int x)
+    {
+        data = x;
+        left = right = NULL;
     }
-    Try(i + 1, sum + a[i]);
-    Try(i + 1, sum - a[i]);
-    Try(i + 1, sum * a[i]);
+};
+
+node* insert(node* root, int x)
+{
+    if (root == NULL)
+        return new node(x);
+    if (x > root->data)
+        root->right = insert(root->right, x);
+    else
+        root->left = insert(root->left, x);
+    return root;
+}
+
+node* searchMin(node* root)
+{
+    node* tmp = root;
+    while (tmp && tmp->left != NULL) {
+        tmp = tmp->left;
+    }
+    return tmp;
+}
+
+node* searchMax(node* root)
+{
+    node* tmp = root;
+    while (tmp && tmp->right != NULL) {
+        tmp = tmp->right;
+    }
+    return tmp;
+}
+
+node* deletenode(node* root, int x)
+{
+    if (root == NULL)
+        return root;
+    if (x < root->data)
+        root->left = deletenode(root->left, x);
+    else if (x > root->data)
+        root->right = deletenode(root->right, x);
+    else {
+        if (root->left == NULL && root->right == NULL) {
+            delete root;
+            return NULL;
+        } else if (root->left != NULL) {
+            node* tmp = searchMax(root->left);
+            root->data = tmp->data;
+            root->left = deletenode(root->left, tmp->data);
+        } else {
+            node* tmp = searchMin(root->right);
+            root->data = tmp->data;
+            root->right = deletenode(root->right, tmp->data);
+        }
+    }
+    return root;
+}
+
+void truyvan(node* root, int x)
+{
+    if (root == NULL)
+        return;
+    if (x == root->data) {
+        ok = 1;
+        cout << root->data << " ";
+        return;
+    } else if (x < root->data)
+        truyvan(root->left, x);
+    else if (x > root->data)
+        truyvan(root->right, x);
+    if (ok)
+        cout << root->data << " ";
+}
+
+void pos(node* root)
+{
+    if (root == NULL)
+        return;
+    pos(root->left);
+    pos(root->right);
+    cout << root->data << " ";
 }
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    int t;
-    cin >> t;
-    while (t--) {
-        for (int& x : a)
-            cin >> x;
-        sort(a, a + 5);
-        f = 0;
-        do {
-            Try(1, a[0]);
-        } while (next_permutation(a, a + 5) && !f);
-        cout << (f ? "YES\n" : "NO\n");
+    int n;
+    cin >> n;
+    node* root = NULL;
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        root = insert(root, x);
     }
-    return 0;
+    pos(root);
 }
