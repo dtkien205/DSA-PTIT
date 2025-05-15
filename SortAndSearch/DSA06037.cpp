@@ -30,7 +30,7 @@ int main()
         }
         cout << res.size() << endl;
         for (auto x : res)
-            cout << x << ' ';
+            cout << x + 1 << ' ';
         cout << endl;
     }
 }

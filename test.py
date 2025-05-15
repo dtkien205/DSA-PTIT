@@ -1,10 +1,7 @@
-import math
+v8 = "abcdefghijklmnopqrstuvwxyz"
+v7 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-def catalan(n):
-    return math.factorial(2 * n) // (math.factorial(n) * math.factorial(n + 1))
+v6 = [0] * 64
 
-T = int(input())
-
-for _ in range(T):
-    n = int(input())
-    print(catalan(n))  
+for i in range(0, 26):
+    v6[]

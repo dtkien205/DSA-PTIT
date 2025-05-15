@@ -1,33 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define endl '\n'
 
-int n, h[1005];
-vector<int> adj[1005];
-bool visited[1005];
+int n;
+vector<int> A[200005];
+ll M[200005], h[200005];
 
-void dfs(int u)
+ll dfs1(int u) // tinh so luong con v cua u
+{
+    M[u] = 1;
+    for (int v : A[u])
+        M[u] += dfs1(v);
+    return M[u];
+}
+
+ll dfs2(int u)
 {
     h[u] = 1;
-    visited[u] = true;
-    for (int v : adj[u]) {
-        if (!visited[v]) {
-            dfs(v);
-            h[u] += h[v] + 1;
-        }
-    }
-}   
+    for (int v : A[u])
+        h[u] += dfs2(v) + M[v];
+    return h[u];
+}
 
 int main()
 {
     cin >> n;
     for (int i = 2; i <= n; i++) {
-        int x;
-        cin >> x;
-        adj[x].push_back(i);
+        int u;
+        cin >> u;
+        A[u].push_back(i);
     }
-    dfs(1);
+    dfs1(1);
+    dfs2(1);
     for (int i = 1; i <= n; i++)
-        cout << h[i] << ' ';
+        cout << h[i] << " ";
 }

@@ -9,17 +9,17 @@ int main()
     int test;
     cin >> test;
     while (test--) {
-        int n;
-        cin >> n;
-        ll a[n + 1];
-        for (int i = 1; i <= n; i++)
-            cin >> a[i];
+        string s;
+        getline(cin >> ws, s);
+        int n = s.size();
+        s = " " + s;
+        ll sum = 0, F[n + 1];
+        memset(F, 0, sizeof(F));
 
-        ll cur = 0, maxSum = 0;
         for (int i = 1; i <= n; i++) {
-            cur = max(a[i], cur + a[i]);
-            maxSum = max(maxSum, cur);
+            F[i] = F[i - 1] * 10 + (s[i] - '0') * i;
+            sum += F[i];
         }
-        cout << maxSum << endl;
+        cout << sum << endl;
     }
 }

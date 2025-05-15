@@ -4,24 +4,25 @@ using namespace std;
 #define endl '\n'
 
 ll f[100];
-
 void init()
 {
     f[1] = f[2] = 1;
-    for (int i = 3; i <= 95; i++)
-        f[i] = f[i - 1] + f[i - 2];
+    for (int i = 3; i <= 90; i++)
+        f[i] = f[i - 1] + 1 + f[i - 2];
 }
 
 char res(ll n, ll k)
 {
     if (n == 1)
-        return 'A';
+        return 'L';
     if (n == 2)
-        return 'B';
-    if (k <= f[n - 2])
-        return res(n - 2, k);
+        return 'V';
+    if (k <= f[n - 1])
+        return res(n - 1, k);
+    else if (k == f[n - 1] + 1)
+        return (n % 2 ? 'L' : 'V');
     else
-        return res(n - 1, k - f[n - 2]);
+        return res(n - 2, k - 1 - f[n - 1]);
 }
 
 int main()
