@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define endl '\n'
+
+int main()
+{
+    cin.tie(0)->sync_with_stdio(0);
+    int test;
+    cin >> test;
+    while (test--) {
+        string s;
+        getline(cin >> ws, s);
+        stack<int> st;
+        int cnt = 1, mx = 0;
+        for (auto x : s) {
+            if (x == '(') {
+                st.push(cnt++);
+                cout << st.top() << ' ';
+            } else if (x == ')') {
+                cout << st.top() << ' ';
+                st.pop();
+            }
+        }
+        cout << endl;
+    }
+}
